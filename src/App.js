@@ -1,23 +1,119 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import PokedexCards from "./components/PokedexCards";
 
 function App() {
+  const [pokemonsArr, setPokemonsArr] = useState([]);
+
+  const createPokemonObject = async (results) => {
+    let tempArr = pokemonsArr.slice();
+    await Promise.all(
+      results.map(async (pokemon) => {
+        const response = await fetch(pokemon.url);
+        const data = await response.json();
+        const editedData = {
+          id: data.id,
+          name: data.name,
+          sprite: data.sprites.front_default,
+          types: [data.types[0].type.name, ""],
+        };
+
+        console.log(editedData);
+
+        if (data.types[1]) {
+          editedData.types[1] = data.types[1].type.name;
+        }
+
+        tempArr[editedData.id - 1] = editedData;
+      })
+    );
+
+    setPokemonsArr(tempArr);
+  };
+  const getPokemons = async () => {
+    const gen = document.getElementById("generation-select").value;
+    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+
+    switch (+gen) {
+      case 1:
+        response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+        break;
+
+      case 2:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
+        );
+        break;
+
+      case 3:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
+        );
+        break;
+
+      case 4:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
+        );
+        break;
+
+      case 5:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=493&limit=156"
+        );
+        break;
+
+      case 6:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
+        );
+        break;
+
+      case 7:
+        response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?offset=721&limit=88"
+        );
+        break;
+
+      default:
+        break;
+    }
+    const data = await response.json();
+
+    createPokemonObject(data.results);
+  };
+
+  const renderPokeCard = (arr) => {
+    return arr.map((pokemon, index) => {
+      return (
+        <PokedexCards
+          id={pokemon.id}
+          name={pokemon.name}
+          sprite={pokemon.sprite}
+          types={pokemon.types[0] + " " + pokemon.types[1]}
+          key={index}
+        />
+      );
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>PokeDex</h1>
+      <select id="generation-select">
+        <option value="1">Generation I</option>
+        <option value="2">Generation II</option>
+        <option value="3">Generation III</option>
+        <option value="4">Generation IV</option>
+        <option value="5">Generation V</option>
+        <option value="6">Generation VI</option>
+        <option value="7">Generation VII</option>
+      </select>
+      <button id="load-button" className="load-button" onClick={getPokemons}>
+        Load
+      </button>
+      <div className="pokemons-container">
+        <div className="pokecards-container">{renderPokeCard(pokemonsArr)}</div>
+      </div>
     </div>
   );
 }
