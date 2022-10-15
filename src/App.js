@@ -17,8 +17,6 @@ function App() {
           types: [data.types[0].type.name, ""],
         };
 
-        console.log(editedData);
-
         if (data.types[1]) {
           editedData.types[1] = data.types[1].type.name;
         }
