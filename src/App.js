@@ -124,7 +124,7 @@ function App() {
 
   return (
     <div className="app__container">
-      <h1>PokeDex</h1>
+      <h1>Pokedex</h1>
       <select id="generation__select">
         <option value="1">Generation I</option>
         <option value="2">Generation II</option>
