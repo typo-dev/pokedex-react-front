@@ -134,7 +134,7 @@ function App() {
         <option value="7">Generation VII</option>
       </select>
       <button id="load-button" className="load-button" onClick={getPokemons}>
-        Load
+        Post
       </button>
       <div className="pokemons-container">
         <div className="pokecards-container">{renderPokeCard(pokemonsArr)}</div>
