@@ -56,7 +56,7 @@ function App() {
     setPokemonsArr(tempArr);
   };
   const getPokemons = async () => {
-    const gen = document.getElementById("generation-select").value;
+    const gen = document.getElementById("generation__select").value;
     let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
 
     switch (+gen) {
