@@ -14,9 +14,7 @@ function App() {
   }, []);
 
   const postPokemons = (arr) => {
-    // note it checks if document with the pokemon.id exists in the DB,
-    // if so, it does not post. if you want to add more info to pokemon object,
-    // have to change backend code and replace current db documents, or directly modify each document in db.
+    // checks if document with the pokemon.id exists in the DB (in backend)
     arr.forEach((pokemon) => {
       Axios.post("http://localhost:5000/postPokemons", pokemon).then((resp) => {
         console.log(`Pokemon ${pokemon.id} post request sent`);
