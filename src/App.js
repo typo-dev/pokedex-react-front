@@ -1,8 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PokedexCards from "./components/PokedexCards";
+import Axios from "axios";
 
 function App() {
   const [pokemonsArr, setPokemonsArr] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:5000/getPokemons").then((resp) => {
+      const tempArr = resp.data;
+      tempArr.sort(compareId);
+      setPokemonsArr(tempArr);
+    });
+  }, []);
+
+  const postPokemons = (arr) => {
+    arr.forEach((pokemon) => {
+      Axios.post("http://localhost:5000/postPokemons", pokemon).then((resp) => {
+        console.log(`Pokemon ${pokemon.id} posted to DB`);
+      });
+    });
+  };
+
+  const compareId = (obj1, obj2) => {
+    if (obj1.id >= obj2.id) {
+      return 1;
+    } else if (obj1.id < obj2.id) {
+      return -1;
+    }
+    return 0;
+  };
 
   const createPokemonObject = async (results) => {
     let tempArr = pokemonsArr.slice();
@@ -25,6 +51,7 @@ function App() {
       })
     );
 
+    postPokemons(tempArr);
     setPokemonsArr(tempArr);
   };
   const getPokemons = async () => {
