@@ -13,7 +13,7 @@ const pokedexCards = ({ id, name, sprite, types }) => {
       <img src={sprite} alt={name}></img>
       <div className="pokecard__info info__wrapper">
         <h1>{name}</h1>
-        <p>Type: {types}</p>
+        <p>type: {types}</p>
       </div>
     </div>
   );
