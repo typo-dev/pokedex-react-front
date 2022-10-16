@@ -115,7 +115,7 @@ function App() {
           id={pokemon.id}
           name={pokemon.name}
           sprite={pokemon.sprite}
-          types={pokemon.types[0] + " " + pokemon.types[1]}
+          types={pokemon.types}
           key={index}
         />
       );

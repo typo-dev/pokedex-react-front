@@ -2,8 +2,11 @@ import React from "react";
 
 const pokedexCards = ({ id, name, sprite, types }) => {
   id = id.toString().padStart(3, "0");
+  const mainDivName = `pokecard pokecard__container ${types[0]}`;
+  types = types[0] + " " + types[1];
+
   return (
-    <div className="pokecard pokecard__container">
+    <div className={mainDivName}>
       <div className="pokecard__id">
         <p>#{id}</p>
       </div>
