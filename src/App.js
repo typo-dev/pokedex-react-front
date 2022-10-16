@@ -16,7 +16,7 @@ function App() {
   const postPokemons = (arr) => {
     arr.forEach((pokemon) => {
       Axios.post("http://localhost:5000/postPokemons", pokemon).then((resp) => {
-        console.log(`Pokemon ${pokemon.id} posted to DB`);
+        console.log(`Pokemon ${pokemon.id} post request sent`);
       });
     });
   };
