@@ -123,9 +123,9 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app__container">
       <h1>PokeDex</h1>
-      <select id="generation-select">
+      <select id="generation__select">
         <option value="1">Generation I</option>
         <option value="2">Generation II</option>
         <option value="3">Generation III</option>
@@ -134,11 +134,13 @@ function App() {
         <option value="6">Generation VI</option>
         <option value="7">Generation VII</option>
       </select>
-      <button id="load-button" className="load-button" onClick={getPokemons}>
+      <button id="load__button" className="load__button" onClick={getPokemons}>
         Post
       </button>
-      <div className="pokemons-container">
-        <div className="pokecards-container">{renderPokeCard(pokemonsArr)}</div>
+      <div className="pokemons__container">
+        <div className="pokecards__container">
+          {renderPokeCard(pokemonsArr)}
+        </div>
       </div>
     </div>
   );
